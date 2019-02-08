@@ -1,0 +1,72 @@
+{
+	"parser": "babel-eslint",
+	"plugins": [
+		"react-hooks"
+	],
+	"env": {
+		"browser": true,
+		"node": true,
+		"jest": true
+	},
+	"extends": "airbnb",
+	"rules": {
+		"react-hooks/rules-of-hooks": "error",
+		"no-use-before-define": [
+			"error",
+			{
+				"variables": false
+			}
+		],
+		"eqeqeq": "warn",
+		"curly": "warn",
+		"quotes": [
+			"error",
+			"single"
+		],
+		"semi": [
+			"error",
+			"never"
+		],
+		"indent": [
+			"warn",
+			"tab"
+		],
+		"react/jsx-indent": [
+			2,
+			"tab"
+		],
+		"react/jsx-indent-props": [
+			2,
+			"tab"
+		],
+		"linebreak-style": "off",
+		"no-tabs": 0,
+		"require-await": "warn",
+		"no-warning-comments": [
+			"error",
+			{
+				"terms": [
+					"todo",
+					"fixme"
+				],
+				"location": "anywhere"
+			}
+		],
+		"react/jsx-filename-extension": [
+			1,
+			{
+				"extensions": [
+					".js",
+					".jsx"
+				]
+			}
+		],
+		"react/destructuring-assignment": [
+			"on",
+			"never",
+			{
+				"ignoreClassFields": false
+			}
+		]
+	}
+}
