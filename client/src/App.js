@@ -17,16 +17,21 @@ const App = () => {
 	return (
 		<div
 			onMouseMove={(e) => {
-				if (
-					attackerPosition(e.clientX, e.clientY)
-						.isLessThan(minimumDistance)
-						.from(victimsPosition)
-				) {
+				const attackerPosition = { x: e.clientX, y: e.clientY }
+
+				if (attackerIsNearVictim(attackerPosition, victimsPosition, minimumDistance)) {
 					setVictimsMood(stressed)
-					setVictimsPosition(newSafePostion())
+					setVictimsPosition(
+						newSafePostion({ width: window.innerWidth, height: window.innerHeight }, objectWidth),
+					)
 				}
 			}}
-			style={{ width: '100vh', height: '100vh', cursor: `url(${devil}), auto` }}
+			style={{
+				width: '100vh',
+				height: '100vh',
+				minWidth: '100%',
+				cursor: `url(${devil}), auto`,
+			}}
 		>
 			<img
 				src={victimsMood}
@@ -51,25 +56,18 @@ const victimsStyleAnd = victimsPosition => ({
 	alignItems: 'center',
 })
 
-const attackerPosition = (x, y) => ({
-	mousePosition: { x, y },
-	isLessThan(pixels) {
-		return {
-			mousePosition: { ...this.mousePosition },
-			distance: pixels,
-			from(position) {
-				return (Math.abs(position.x - this.mousePosition.x) < this.distance
-					&& Math.abs(position.y - this.mousePosition.y) < this.distance)
-			},
-		}
-	},
-})
+const attackerIsNearVictim = (attackerPosition, victimsPosition, distance) => (
+	(Math.abs(victimsPosition.x - attackerPosition.x) < distance
+		&& Math.abs(victimsPosition.y - attackerPosition.y) < distance)
+)
 
-const newSafePostion = () => (
+const newSafePostion = (windowSize, objectSize) => (
 	{
-		x: Math.floor(Math.random() * (window.innerWidth - objectWidth)),
-		y: Math.floor(Math.random() * (window.innerHeight - objectWidth)),
+		x: Math.floor(Math.random() * (windowSize.width - objectSize)),
+		y: Math.floor(Math.random() * (windowSize.height - objectSize)),
 	}
 )
+
+export { newSafePostion, attackerIsNearVictim }
 
 export default App
